@@ -5,6 +5,14 @@ function gameObject(posX, posY, obW, obH)
   this.posVec =  createVector(posX,posY);
   this.w = obH;
   this.h = obW;
+  
+  this.lastPosVec.set(this.posVec);
+  this.lastW = this.w;
+  this.lastH = this.h;
+  
+  this.firstPosVec.set(this.posVec);
+  this.firstW = this.w;
+  this.firstH = this.h;
 }
 
 
@@ -18,6 +26,15 @@ drawingContext.shadowOffsetY = -5;
 drawingContext.shadowBlur = 10;
 drawingContext.shadowColor = "black";
 background(200);
+
+
+//set up functions and prototype objects
+	gameObject.prototype.reset = function(){
+	 this.posVec.set(this.firstPosVec);
+	 this.w = this.firstW;
+	 this.h = this.firstH;
+	}
+
 }
 
  
