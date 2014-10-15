@@ -36,10 +36,29 @@ GameObj.prototype.add = function(ix,iy){
 GameObj.prototype.set = function(x,y){
 	  this.oldVectorPos.set(this.curVectorPos);
 	  this.curVectorPos.set(x,y);
+	  
 };
 
+function GameAutom(x,y,w,h){
+	GameObj.call(this,x,y,w,h);
+}
+
+GameAutom.prototype = Object.create(GameAutom.prototype);
+
+GameAutom.prototype.constructor = GameAutom;
+
+GameAutom.prototype.reset = function(){
+	this.oldVectorPos.set(this.curVectorPos);
+	this.oldW = this.w;
+	this.oldH = this.h;
+	
+	this.curVectorPos.set(this.firstVectorPos.x,this.firstVectorPos.y);
+	this.w = this.firstW;
+	this.h = this.firstH;
+}
+
 hero =  new GameObj(200,200,20,20);
-colItem = new GameObj(windowWidth/2,windowHeight/2,20,20);
+colItem = new GameAutom(windowWidth/2,windowHeight/2,20,20);
 
 }
 
