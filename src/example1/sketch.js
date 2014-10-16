@@ -13,13 +13,17 @@ function GameObj(x,y,w,h){
 	this.oldVectorPos = createVector(0,0);
 };
 
+//Make the GameAutom function//
+function GameAutom(x,y,w,h){
+	GameObj.call(this,x,y,w,h);
+}
 
 var hero;
 var colItem;
+var playArea;
 
 function setup() {
  
-// put setup code here
 createCanvas(windowWidth,windowHeight)
 
 drawingContext.shadowOffsetX = 5;
@@ -39,12 +43,11 @@ GameObj.prototype.set = function(x,y){
 	  
 };
 
-function GameAutom(x,y,w,h){
-	GameObj.call(this,x,y,w,h);
-}
 
-GameAutom.prototype = Object.create(GameAutom.prototype);
+//Make the GameAutom prototype
+GameAutom.prototype = Object.create(GameObj.prototype);
 
+//Set the GameAutom prototype constructor to the GameAutom function
 GameAutom.prototype.constructor = GameAutom;
 
 GameAutom.prototype.reset = function(){
@@ -57,8 +60,10 @@ GameAutom.prototype.reset = function(){
 	this.h = this.firstH;
 }
 
+//Objects
 hero =  new GameObj(200,200,20,20);
 colItem = new GameAutom(windowWidth/2,windowHeight/2,20,20);
+playArea =  new GameObj(0,0,windowWidth,windowHeight);
 
 }
 
@@ -75,6 +80,16 @@ var y = mouseY;
 
 hero.set(x,y);
 
+if(isBoundOverlap(hero,colItem))
+{
+	fill(200,0,0);
+}
+
+if(isBoundOverlap(colItem,playArea))
+{
+	colItem.add(0,5);
+}
+
 rect(hero.curVectorPos.x,hero.curVectorPos.y,hero.w,hero.h);
 rect(colItem.curVectorPos.x,colItem.curVectorPos.y,colItem.w,colItem.h);
 
@@ -85,7 +100,7 @@ function isBoundOverlap(boundBox1,boundBox2)
 
 	if(boundBox1.curVectorPos.x + boundBox1.w > boundBox2.curVectorPos.x && 
 	boundBox1.curVectorPos.y + boundBox1.h > boundBox2.curVectorPos.y &&
-	boundBox2.curVectorPos.y + boundBox2.h > boundBox1.curVectorPos.x &&
+	boundBox2.curVectorPos.y + boundBox2.h > boundBox1.curVectorPos.y &&
 	boundBox2.curVectorPos.x + boundBox2.w > boundBox1.curVectorPos.x)
 	{
 	return 1;
