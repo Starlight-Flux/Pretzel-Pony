@@ -90,8 +90,6 @@ for(i=0; i<5; i++){
 }
 function draw() {
  
-// put drawing code here
-
 
 background(200);
 var x = mouseX;
@@ -99,26 +97,15 @@ var y = mouseY;
 
 hero.set(x,y);
 
-
-
-if(isBoundOverlap(hero,colItem))
-{
-    fill(200,0,0);
-}
-
-if(isBoundOverlap(colItem,playArea))
-{
-    colItem.move()
-    
-}
-else
-{
-    colItem.changeSpeed(randomNum(-10,10),randomNum(-10,10));
-    colItem.reset();
-}
-
 rect(hero.curVectorPos.x,hero.curVectorPos.y,hero.w,hero.h);
-rect(colItem.curVectorPos.x,colItem.curVectorPos.y,colItem.w,colItem.h);
+
+for(i=0; i<colItemGroup.length; i++)
+{
+	gamelogic(hero,colItemGroup[i],playArea)
+	rect(colItemGroup[i].curVectorPos.x,colItemGroup[i].curVectorPos.y,colItemGroup[i].w,colItemGroup[i].h);
+}
+ellipse(windowWidth/2,windowHeight/2,50,50);
+
 
 }
 
@@ -144,3 +131,23 @@ function isBoundOverlap(boundBox1,boundBox2)
     }   
 }
 
+function gamelogic(hero,item,playArea)
+{
+
+	if(isBoundOverlap(item,hero))
+	{
+		fill(200,0,0);
+		item.changeSpeed(randomNum(-10,10),randomNum(-10,10));
+		item.reset();
+	}
+
+	if(isBoundOverlap(item,playArea))
+	{
+		item.move()
+	}
+	else
+	{
+    item.changeSpeed(randomNum(-10,10),randomNum(-10,10));
+    item.reset();
+	}
+}
