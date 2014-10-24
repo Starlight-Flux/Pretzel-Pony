@@ -28,8 +28,13 @@ var colItem;
 var playArea;
 var colItemGroup = [];
 
+var warpholeColour;
+
+var x;
+var y;
+
 function setup() {
- 
+
 createCanvas(windowWidth,windowHeight)
 
 drawingContext.shadowOffsetX = 5;
@@ -84,21 +89,24 @@ playArea =  new GameObj(0,0,windowWidth,windowHeight);
 
 for(i=0; i<5; i++){
     colItemGroup[i] = new GameAutom(windowWidth/2,windowHeight/2,20,20,5,5);
+	
 }
 
+warpholeColour = color(0, 126, 255, 102);
  
 }
 function draw() {
  
 
 background(200);
-var x = mouseX;
-var y = mouseY;
+
+
+x = mouseX;
+y = mouseY;
 
 hero.set(x,y);
 
 rect(hero.curVectorPos.x,hero.curVectorPos.y,hero.w,hero.h);
-
 
 //Loop though game collectables
 for(i=0; i<colItemGroup.length; i++)
@@ -108,11 +116,27 @@ for(i=0; i<colItemGroup.length; i++)
 	rect(colItemGroup[i].curVectorPos.x,colItemGroup[i].curVectorPos.y,colItemGroup[i].w,colItemGroup[i].h);
 }
 
-
+noStroke();
+fill(warpholeColour);
 ellipse(windowWidth/2,windowHeight/2,50,50);
 
 
 }
+
+/*function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    hero.add(5,0);
+  } else if (keyCode === RIGHT_ARROW) {
+    hero.add(-5,0);
+  }
+  if (keyCode === UP_ARROW) {
+    hero.add(0,-5);
+  } else if (keyCode === DOWN_ARROW) {
+    hero.add(0,5);
+  }
+  
+  
+}*/
 
 // Returns a random number between min (inclusive) and max (exclusive)
 function randomNum(min,max)
@@ -148,9 +172,9 @@ function gameState(hero,item,playArea)
 
 	if(isBoundOverlap(item,playArea))
 	{
-		if(millis()%500 == 0){
+		if(millis()%1 == 0){
 			item.move()
-		{
+		}
 	}
 	else
 	{
