@@ -99,11 +99,16 @@ hero.set(x,y);
 
 rect(hero.curVectorPos.x,hero.curVectorPos.y,hero.w,hero.h);
 
+
+//Loop though game collectables
 for(i=0; i<colItemGroup.length; i++)
 {
-	gamelogic(hero,colItemGroup[i],playArea)
+	//Update the state of the game
+	gameState(hero,colItemGroup[i],playArea);
 	rect(colItemGroup[i].curVectorPos.x,colItemGroup[i].curVectorPos.y,colItemGroup[i].w,colItemGroup[i].h);
 }
+
+
 ellipse(windowWidth/2,windowHeight/2,50,50);
 
 
@@ -131,7 +136,7 @@ function isBoundOverlap(boundBox1,boundBox2)
     }   
 }
 
-function gamelogic(hero,item,playArea)
+function gameState(hero,item,playArea)
 {
 
 	if(isBoundOverlap(item,hero))
@@ -143,7 +148,9 @@ function gamelogic(hero,item,playArea)
 
 	if(isBoundOverlap(item,playArea))
 	{
-		item.move()
+		if(millis()%500 == 0){
+			item.move()
+		{
 	}
 	else
 	{
